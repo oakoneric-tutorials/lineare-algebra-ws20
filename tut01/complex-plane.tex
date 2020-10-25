@@ -1,0 +1,73 @@
+\documentclass[]{standalone}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{tudscrcolor} 
+\usepackage{pgfplots}
+\usepgfplotslibrary{fillbetween} 
+\pgfplotsset{
+  compat=1.10,% mit writeLaTeX bisher noch nicht möglich
+  flaeche/.style={draw=none,fill=black,fill opacity=0.2},
+  every axis/.append style={
+  	axis x line=middle,    % put the x axis in the middle
+  	axis y line=middle,    % put the y axis in the middle
+  	axis line style={->},  % arrows on the axis
+  }
+}
+
+\renewcommand{\Re}{\mathrm{Re}}
+\renewcommand{\Im}{\mathrm{Im}}
+
+\usepackage{opensans}
+\usepackage{sfmath}
+
+\begin{document} 
+
+\begin{tikzpicture} 
+	\begin{axis}[%
+		xmin = 1,
+		xmax =  10,
+		ymin = -0.7,
+		ymax =  10,
+		axis equal,
+		ticks=none,
+		grid=none,
+		xlabel=$\mathbb{R}$,
+		xlabel style={below, anchor=south east,inner xsep=0pt},
+		ylabel=$\mathbb{R}i$,
+		ylabel style={above,anchor=north west,inner ysep=0pt},
+%		xtick = {4.5},
+%		xticklabels = {$a$},
+%		tick style={ultra thick, black}, 
+%		ytick = {7.79},
+%		yticklabels= {$b$}, 
+	]
+	
+		\addplot [domain=-0.3:2, smooth,, samples=100, variable=\x]({9*cos(deg(x))}, {9 * sin(deg(x)))});
+		\coordinate (z) at (axis cs: 4.5, 7.79);
+		\coordinate (a) at (axis cs: 4.5, 0);
+		\coordinate (b) at (axis cs: 0, 7.79);
+		\coordinate (ur) at (axis cs: 0,0);
+		
+		
+		\draw[draw=none, fill=cdblue!20] (ur) -- (axis cs: 3,0) to[bend right] (axis cs: 1.5, 2.6)  -- cycle;
+		\draw[->, ultra thick, cdblue] (axis cs: 3,0) to[bend right] (axis cs: 1.5, 2.6);
+		\node[cdblue] at (axis cs: 1.5,0.8) {$\varphi$};
+		\draw[cdblue, ultra thick] (ur) -- node[above] {$r$} (z);
+		
+		\draw[cdpurple, ultra thick] (a) -- node[right] {$b$} (z);
+		\draw[cdpurple, ultra thick] (ur) -- node[below] {$a$} (a);
+		
+%		\draw[cdpurple, ultra thick] (ur) -- (a) 		node[draw=none,fill=none,font=\scriptsize,midway,below] {text below};
+		\node[label={0:{$(a,b)$}},circle,fill,inner sep=1.5pt] at (z) {};		
+	
+	\end{axis} 
+
+	\node[left,font=\bfseries] at (current bounding box.north east) {$z = a + bi = r \cdot e^{i \varphi}$};
+	
+\end{tikzpicture} 
+
+
+
+
+
+
+\end{document}
