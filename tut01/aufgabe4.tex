@@ -1,0 +1,74 @@
+\documentclass[margin=2mm]{standalone}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{tudscrcolor} 
+\usepackage{pgfplots}
+\usetikzlibrary{decorations.text}
+\usepgfplotslibrary{fillbetween} 
+\pgfplotsset{
+  compat=1.10,% mit writeLaTeX bisher noch nicht möglich
+  flaeche/.style={draw=none,fill=black,fill opacity=0.2},
+  every axis/.append style={
+  	axis x line=middle,    % put the x axis in the middle
+  	axis y line=middle,    % put the y axis in the middle
+  	axis line style={->},  % arrows on the axis
+  }
+}
+
+\renewcommand{\i}{i}
+\renewcommand{\Re}{\mathrm{Re}}
+\renewcommand{\Im}{\mathrm{Im}}
+
+\usepackage{opensans}
+%\usepackage{sfmath}
+
+\begin{document} 
+
+\begin{tikzpicture} 
+	\begin{axis}[%
+		xmin = -3,
+		xmax =  3,
+		ymin = -3,
+		ymax =  3,
+		axis equal,
+		ticks=none,
+		grid=none,
+		xlabel=$\mathbb{R}$,
+		xlabel style={below, anchor=south east,inner xsep=0pt},
+		ylabel=$\mathbb{R}i$,
+		ylabel style={above,anchor=north west,inner ysep=0pt},
+%		xtick = {4.5},
+%		xticklabels = {$a$},
+%		tick style={ultra thick, black}, 
+%		ytick = {7.79},
+%		yticklabels= {$b$}, 
+	]
+		
+	\addplot [domain=0:6.28, smooth, samples=100, variable=\x]({2*cos(deg(x))}, {2*sin(deg(x)))});
+	
+	\coordinate (z1) at (axis cs:  1, -1.73);
+	\coordinate (z2) at (axis cs: -1,  1.73);
+	\coordinate (z3) at (axis cs: -1, -1.73);
+	\coordinate (z4) at (axis cs:  1,  1.73);
+	
+	\node[label={0:{$z_1$}},circle,fill,inner sep=1.5pt] at (z1) {};
+	\node[label={0:{$z_2$}},circle,fill,inner sep=1.5pt] at (z2) {};
+	\node[label={0:{$z_3$}},circle,fill,inner sep=1.5pt] at (z3) {};
+	\node[label={0:{$z_4$}},circle,fill,inner sep=1.5pt] at (z4) {};
+	
+	\node[align=center, scale=0.8] at (axis cs: 2,-2.5) {$z_1 = 1 - \sqrt{3} \i$};
+	\node[align=center, scale=0.8] at (axis cs: -2,2.5) {$z_2 = -1 + \sqrt{3} \i$};
+	\node[align=center, scale=0.8] at (axis cs: -2,-2.5) {$z_2 = -1 - \sqrt{3} \i$};
+	\node[align=center, scale=0.8] at (axis cs: 2,2.5) {$z_4 = 1 + \sqrt{3} \i$};
+	
+	\draw[dashed, cdgray] (axis cs: 0,0) -- node[above, scale=0.7, rotate=30] {$r=2$} (axis cs: 1.73 , 1);
+
+	\end{axis} 
+	
+\end{tikzpicture} 
+
+
+
+
+
+
+\end{document}
