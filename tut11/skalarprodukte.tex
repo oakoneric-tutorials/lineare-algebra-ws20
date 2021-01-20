@@ -1,0 +1,144 @@
+\documentclass{beamer}
+\usepackage{../tut-slides-LA}
+\usepackage{../mathoperatorsLA}
+
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb}
+\usepackage{wasysym}
+\usepackage{stmaryrd}
+\usepackage{enumerate}
+%\usepackage[inline]{enumitem} 		%customize label
+%\newcommand{\labelitemi}{\raisebox{1pt}{\scalebox{.9}{$\blacktriangleright$}}}
+%\newcommand{\labelitemii}{$\vartriangleright$}
+%\newcommand{\labelitemiii}{--}
+\setbeamertemplate{itemize item}{\raisebox{1pt}{\scalebox{.9}{$\blacktriangleright$}}}
+\setbeamertemplate{itemize subitem}{$\vartriangleright$}
+
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{tabu}
+\newcommand*\head{\rowfont{\bfseries}}
+\newcommand*{\tw}{\rowfont{\ttfamily}}
+\renewcommand{\tabularxcolumn}[1]{>{\hspace{0pt}}m{#1}}
+\usepackage{multirow}
+
+\usepackage{cancel}
+
+\usepackage{empheq}
+\newcommand*\widefbox[1]{\fbox{\hspace{2em} #1 \hspace{2em}}}
+
+\usepackage{tcolorbox}
+\newtcolorbox{mymathbox}[1][]{colback=white, sharp corners, #1}
+
+\usepackage{xcolor}
+\usepackage{listings}
+\lstset{numbers=left,
+	numberstyle=\tiny,
+	breaklines=true,
+	backgroundcolor=\color{cdgray!20},
+	numbersep=5pt,
+	language=C,
+	tabsize=2,
+	basicstyle=\footnotesize\ttfamily,
+	showstringspaces=false}
+
+\DeclareMathOperator{\ack}{\mathbf{ack}}
+\usepackage{MnSymbol}
+
+\usepackage{csquotes}
+\usepackage{ragged2e}
+
+
+\begin{document}
+	\title{Lineare Algebra}
+	\subtitle{Übung 11: Skalarprodukte}
+	\author{Eric Kunze}
+	\email{eric.kunze@mailbox.tu-dresden.de}
+	\city{TU Dresden}
+%	\institute{Lehrstuhl für Grundlagen der Programmierung}
+	\titlegraphic{\includegraphics[width=2cm]{../TUD-white.pdf}}
+	\date{19.01.2021}
+
+	\maketitle
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame} \frametitle{Skalarprodukt}
+    Sei $V$ ein Vektorraum über einem Köper $K$.
+
+    Eine Abbildung $\bullet : V \times V \to K$ heißt \emph{Skalarprodukt}, wenn folgende Eigenschaften erfüllt sind:
+    \begin{itemize}
+        \item $\bullet$ ist \emph{bilinear},
+        \item $\bullet$ ist \emph{symmetrisch},
+        \item $\bullet$ ist \emph{positiv definit}.
+    \end{itemize}
+
+    Manchmal schreibt man für Vektoren $u,v \in V$ statt $u \bullet v$ auch $\langle u , v \rangle$ oder $(u,v)$.
+\end{frame}
+
+\begin{frame} \frametitle{Bilinearität von $\bullet$}
+    Die Abbildung $\bullet$ ist \enquote{linear in jedem Argument}:
+    \begin{enumerate}
+        \item Linearität im ersten Argument:
+        \begin{itemize}
+            \item additiv: $(u_1 + u_2) \bullet v = (u_1 \bullet v) + (u_2 \bullet v)$
+            \item homogen: $(k u) \bullet v = k (u \bullet v)$
+        \end{itemize}
+        \smallskip oder in einem Schritt \smallskip
+        \begin{itemize}
+            \item $(k_1 u_1 + k_2 u_2) \bullet v = k_1 (u_1 \bullet v) + k_2 (u_2 \bullet v)$
+        \end{itemize}
+        \medskip
+        \item Linearität im zweiten Argument:
+        \begin{itemize}
+            \item additiv: $u \bullet (v_1 + v_2) = (u \bullet v_1) + (u \bullet v_2)$
+            \item homogen: $u \bullet (k v) = k (u \bullet v)$
+        \end{itemize}
+        \smallskip oder in einem Schritt \smallskip
+        \begin{itemize}
+            \item $u \bullet (\ell_1 u_1 + \ell_2 u_2) \bullet v = \ell_1 (u \bullet v_1) + \ell_2 (u \bullet v_2)$
+        \end{itemize}
+    \end{enumerate}
+\end{frame}
+
+\begin{frame} \frametitle{Bilinearität von $\bullet$}
+    Alternativ kann man auch alles in einem Rutsch erledigen und zeigen, dass
+    \begin{align*}
+        &(k_1 u_1 + k_2 u_2) \bullet (\ell_1 v_1 + \ell_2 v_2) \\
+        = \enskip
+        &
+        k_1 \Big(u_1 \bullet (\ell_1 v_1 + \ell_2 v_2) \Big) + k_2 \Big(u_2 \bullet (\ell_1 v_1 + \ell_2 v_2) \Big) \\
+        = \enskip
+        &
+        k_1 \ell_1 (u_1 \bullet v_1) + k_1 \ell_2 (u_1 \bullet v_2) + k_2 \ell_1 (u_2 \bullet v_1) + k_2 \ell_2 (u_2 \bullet v_2)
+    \end{align*}
+    gilt.
+\end{frame}
+
+\begin{frame} \frametitle{Bilinearität $\leftrightarrow$ Linearität}
+    \justifying \small
+    Wir können Bilinearität auch mit der bekanten Linearität in Verbindung bringen. Definieren wir dazu die Abbildung
+    \begin{equation*}
+        s_v : V \to K \quad \text{mit} \quad s_v(u) \defeq u \bullet v \enskip \text{.}
+    \end{equation*}
+    Dann ist Linearität im ersten Argument äquivalent zur Linearität von $s_v$, denn
+    \begin{equation*}
+        s_v(k_1 u_1 + k_2 u_2) = (k_1 u_1 + k_2 u_2) \bullet v \enskip \text{.}
+    \end{equation*}
+    \pause
+    Definieren wir analog dazu
+    \begin{equation*}
+        s_u : V \to K \quad \text{mit} \quad s_u(v) \defeq u \bullet v \enskip \text{,}
+    \end{equation*}
+    dann ist wieder Linearität im zweiten Argument äquivalent zur Linearität von $s_u$, denn
+    \begin{equation*}
+        s_u(\ell_1 v_1 + \ell_2 v_2) = u \bullet (\ell_1 v_1 + \ell_2 v_2) \enskip \text{.}
+    \end{equation*}
+    Linearität von Abbildungen zwischen Vektorräumen haben wir in Übung 5 bereits studiert. Man beachte hier, dass jeder Körper auch einen Vektorraum bildet.
+\end{frame}
+
+% Beispiele: Standardskalarprodukt, von Matrix induziertes SP, SP in Abb(R,R)
+% Längenmessung, Norm
+% Winkelmessung, Orthogonalität
+
+\end{document}
