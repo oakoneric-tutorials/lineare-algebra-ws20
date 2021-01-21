@@ -74,6 +74,8 @@
     \end{itemize}
 
     Manchmal schreibt man für Vektoren $u,v \in V$ statt $u \bullet v$ auch $\langle u , v \rangle$ oder $(u,v)$.
+    
+    Einen Vektorraum $V$ gemeinsam mit einem Skalarprodukt $\bullet$ nennt man \emph{euklidischen Vektorraum} und schreibt $(V, \bullet)$ für diese Paarung.
 \end{frame}
 
 \begin{frame} \frametitle{Bilinearität von $\bullet$}
@@ -137,8 +139,76 @@
     Linearität von Abbildungen zwischen Vektorräumen haben wir in Übung 5 bereits studiert. Man beachte hier, dass jeder Körper auch einen Vektorraum bildet.
 \end{frame}
 
+\begin{frame} \frametitle{Beispiel: Standardskalarprodukt}
+	\justifying \small
+	Aus der Schule bekannt ist das \emph{Standardskalarprodukt} von $u,v \in \Rn$ durch
+	\begin{equation}
+		u \bullet v = u_1 v_1 + u_2 v_2 + \dots u_n v_n \enskip \text{.}
+		\tag{$\star$} \label{eq: standardskalarprodukt}
+	\end{equation}
+	Mit Matrixmultiplikation können wir auch \fbox{$u \bullet v = u^\top v$} schreiben.
+	\begin{itemize}
+		\item \emph{Bilinearität} folgt aus den Eigenschaften der Matrixmultiplikation.
+		\item \emph{Symmetrie:} klar mit \eqref{eq: standardskalarprodukt}.
+		\item \emph{Positive Definitheit:} $u \bullet u = \underbrace{u_1^2}_{\ge 0} + \underbrace{u_2^2}_{\ge 0} + \dots + \underbrace{u_n^2}_{\ge 0} \ge 0$ und $u \bullet u = 0$ kann nur auftreten, wenn jeder Summand schon Null ist, d.h. $u_1 = 0 \land u_2 = 0 \land \dots \land u_n = 0$, was gerade $u=0$ entspricht.
+	\end{itemize}
+\end{frame}
+
+\begin{frame} \frametitle{Beispiel: Skalarprodukt mit Matrix}
+	\justifying \small
+	Anstelle von $u^\top v$ können wir etwas allgemeiner $u \bullet v$ definieren als 
+	\begin{equation*}
+		u \bullet v = u^\top M v
+	\end{equation*}
+	mit einer Matrix $M$. Welche Bedingungen muss $M$ erfüllen, damit $\bullet$ ein Skalarprodukt wird?
+	\begin{itemize}
+		\item \emph{Bilinearität} folgt weiter aus den Eigenschaften der Matrixmultiplikation (vgl. auch Ü106).
+		\item \emph{Symmetrie:} Dafür muss $M$ symmetrisch sein, d.h. $M^\top = M$. 
+		\begin{equation*}
+			u \bullet v = \underbrace{u^\top M v}_{\in \R} 
+			= \brackets{u^\top M v}^\top 
+			= v^\top M^\top \brackets{u^\top}^\top 
+			= v^\top \underbrace{M^\top}_{\mathrlap{\hspace{-1em}= M\text{, wenn $M$ symm.}}} u
+			= v \bullet u
+		\end{equation*}
+		\item \emph{Positive Definitheit:} Hier muss man die positive Definitheit direkt zeigen, d.h. $u^\top M u \ge 0$ und $u^\top M u = 0 \equivalent u = 0$ oder gleichwertig dazu $u^\top M u > 0$ für alle $u \neq 0$.
+	\end{itemize}
+\end{frame}
+
+\begin{frame} \frametitle{Beispiel: Integrale?!}
+	Wir haben aber auch abstraktere Vektorräume kennengelernt, z.B. den Vektorraum der Abbildungen $V = \menge{f : \R \to \R}$. Wie können wir dort ein Skalarprodukt definieren?
+	
+	Man kann zeigen, dass für $f,g \in V$ der Ausdruck
+	\begin{equation*}
+		f \bullet g \defeq \int_0^1 f(x) \ g(x) \enskip dx
+	\end{equation*}
+	ein Skalarprodukt $\bullet$ auf $V$ definiert.
+\end{frame}
 % Beispiele: Standardskalarprodukt, von Matrix induziertes SP, SP in Abb(R,R)
 % Längenmessung, Norm
 % Winkelmessung, Orthogonalität
+
+\begin{frame} \frametitle{Längenmessung}
+	Ein Skalarprodukt $\bullet$ induziert durch
+	\begin{equation*}
+		\norm{v} \defeq \sqrt{v \bullet v}
+	\end{equation*}
+	eine \emph{Norm} auf $V$. 
+	
+	Damit können wir \emph{Längen} von Vektoren messen.
+\end{frame}
+
+\begin{frame} \frametitle{Winkelmessung}
+	Sei $(V,\bullet)$ ein euklidischer Vektorraum. Der \emph{Winkel} $\phi \in [0,2\pi)$ zwischen zwei Vektoren $u,v \in V$ ist bestimmt durch
+	\begin{equation*}
+		\cos(\phi) = \frac{u \bullet v}{\norm{u} \norm{v}} \enskip \text{.}
+	\end{equation*}
+
+	Zwei Vektoren $u,v \in V$ heißen \emph{orthogonal} (in Zeichen $u \perp v$), wenn 
+	\begin{equation*}
+		u \bullet v = 0
+	\end{equation*}
+	gilt. Dann ist nämlich $\cos(\phi) = \frac{u \bullet v}{\norm{u} \norm{v}} = 0$ und damit $\phi \in \menge{\tfrac{\pi}{2}, \tfrac{3\pi}{2}}$.
+\end{frame}
 
 \end{document}
